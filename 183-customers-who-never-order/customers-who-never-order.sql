@@ -1,9 +1,6 @@
 # Write your MySQL query statement below
-SELECT c.name AS Customers
-FROM Customers c
-WHERE NOT EXISTS (
-  SELECT 1
-  FROM Orders o
-  WHERE o.customerId = c.id
-)
-ORDER BY c.name;
+Select C.name as Customers
+from Customers C left join Orders O
+on C.id = O.customerId
+where O.customerId is null
+order by C.name
