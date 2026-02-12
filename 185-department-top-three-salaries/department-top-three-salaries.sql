@@ -7,4 +7,4 @@ from
 ) e
 join department d on
 e.departmentId = d.id
-where dr < 4
+where dr <=3
