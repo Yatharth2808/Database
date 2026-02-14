@@ -1,18 +1,12 @@
-# Write your MySQL query statement below
-WITH x AS (
-  SELECT
-    id, visit_date, people,
-    id - ROW_NUMBER() OVER (ORDER BY id) AS grp
-  FROM Stadium
-  WHERE people >= 100
-),
-y AS (
-  SELECT grp
-  FROM x
-  GROUP BY grp
-  HAVING COUNT(*) >= 3
+with t as (
+    select *,
+    id-row_number() over (order by id) as grp
+    from Stadium
+    where people >99
 )
-SELECT x.id, x.visit_date, x.people
-FROM x
-JOIN y ON x.grp = y.grp
-ORDER BY x.visit_date;
+
+ 
+select id, visit_date, people from 
+t where grp in (
+    select grp from t group by grp having count(*) >2
+)
