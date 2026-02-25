@@ -1,6 +1,6 @@
 # Write your MySQL query statement below
 Select (
-    Case when id % 2 = 1 and id + 1 in (Select id from Seat) then id + 1
+    Case when id % 2 = 1 and id + 1 <= (Select max(id) from Seat) then id + 1
     when id % 2 = 0 then id - 1
     else id end
 ) as id, student from Seat
